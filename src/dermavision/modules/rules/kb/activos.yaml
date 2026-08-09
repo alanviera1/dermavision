@@ -1,0 +1,13 @@
+activos:
+  - inci: "Niacinamide"
+    mecanismo: "regulador_de_sebo_y_reparacion_de_barrera"
+    ph_optimo: [5.0, 7.0]
+    concentracion_minima_eficaz: 0.02
+    concentracion_maxima_segura: 0.10
+    fotosensibilidad: false
+    categoria_embarazo: "B"
+    incompatibilidades: []
+    forma_cosmetica: "serum"
+    evidencia:
+      - "CIR-2017-niacinamide"
+      - "PubMed-26987759"

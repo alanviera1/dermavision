@@ -1,0 +1,9 @@
+reglas_climaticas:
+  - id: "CLI-HUMEDAD-BAJA"
+    condicion: "humedad_relativa < 30"
+    ajuste: "reforzar_humectacion"
+    descripcion: "Humedad < 30%: añadir ceramidas, glicerina y texturas oclusivas."
+  - id: "CLI-TEMP-ALTA"
+    condicion: "temperatura_c > 28"
+    ajuste: "texturas_gel"
+    descripcion: "Temperatura alta: preferir texturas gel ligeras."

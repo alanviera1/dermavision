@@ -1,0 +1,16 @@
+indicaciones:
+  - id: "IND-ACNE-LEVE"
+    target: "acne"
+    severidad: "leve"
+    activos:
+      - inci: "Niacinamide"
+        nivel_evidencia: "alta"
+      - inci: "Salicylic Acid"
+        nivel_evidencia: "alta"
+  - id: "IND-PIGMENTACION-FIV-VI"
+    target: "hiperpigmentacion"
+    severidad: "moderada"
+    fitzpatrick: [4, 5, 6]
+    activos:
+      - inci: "Azelaic Acid"
+        nivel_evidencia: "alta"

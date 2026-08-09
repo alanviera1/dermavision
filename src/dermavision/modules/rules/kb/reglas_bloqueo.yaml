@@ -1,0 +1,13 @@
+reglas_bloqueo:
+  - id: "BLK-UV-DIURNO"
+    condicion:
+      - "uv_index_max_today > 5"
+      - "activo.fotosensibilidad == true"
+    accion: "bloquear_uso_diurno"
+    descripcion: "Activos fotosensibles prohibidos de día con UV alto; uso nocturno condicionado a SPF."
+  - id: "BLK-EMBARAZO-RETINOIDE"
+    condicion:
+      - "profile.embarazo == true"
+      - "activo.incompatibilidad_embarazo == true"
+    accion: "bloquear_activo"
+    descripcion: "Retinoides e hidroquinona bloqueados durante embarazo/lactancia."
