@@ -1,6 +1,6 @@
 # Plan de Desarrollo Técnico — Sistema Experto de Análisis Dermocosmético Cuantitativo
 
-**Proyecto de tesis · v1.0 (aprobado) · Última revisión: 2026-08-09**
+**v1.0 (aprobado) · Última revisión: 2026-08-09**
 
 ---
 
@@ -23,7 +23,7 @@ El núcleo del sistema es **100% determinista** (motor de reglas con base de con
 
 | Decisión | Elección | Justificación |
 |---|---|---|
-| Arquitectura | **Monolito modular** (FastAPI) con 4 dominios internos (A: visión, B: clima, C: reglas, D: trazabilidad) | A escala de tesis, microservicios añaden complejidad sin beneficio. Fronteras de dominio claras dentro de un solo servicio |
+| Arquitectura | **Monolito modular** (FastAPI) con 4 dominios internos (A: visión, B: clima, C: reglas, D: trazabilidad) | A la escala del producto, microservicios añaden complejidad sin beneficio. Fronteras de dominio claras dentro de un solo servicio |
 | Núcleo de inferencia | **Determinista** (CV de transfer learning + motor de reglas) | Exigencia clínica: mismo input → mismo output. Reproducibilidad y auditabilidad totales |
 | LLM | Solo capa de presentación **opcional**, con validación estricta de salida | El reto clínico prohíbe LLM en la ruta crítica |
 | Plataforma | **PWA web** (React + Vite + `getUserMedia`) | Máxima simplicidad, $0, instalable en móvil; captura de cámara nativa del navegador |
@@ -57,7 +57,7 @@ El núcleo del sistema es **100% determinista** (motor de reglas con base de con
 |---|---|---|
 | Detección facial + landmarks | MediaPipe Face Mesh / BlazeFace | Apache-2.0 |
 | Segmentación de región facial | BiSeNet face parsing (pre-entrenado) | MIT |
-| Detección de lesiones de acné | Ultralytics YOLOv8n (fine-tune) | AGPL-3.0 (válido para tesis; alternativa Apache-2.0 documentada: RT-DETR) |
+| Detección de lesiones de acné | Ultralytics YOLOv8n (fine-tune) | AGPL-3.0 (válido para uso no comercial; alternativa Apache-2.0 documentada: RT-DETR) |
 | Segmentación de pigmentación/eritema | U-Net / DeepLabV3+ (ResNet50, timm) | MIT / Apache-2.0 |
 | Preprocesamiento | OpenCV, scikit-image, CLAHE, Retinex, filtros bilaterales | BSD |
 | Up-scaling opcional | Real-ESRGAN (solo si QA lo permite) | BSD-3 |
@@ -131,7 +131,7 @@ El núcleo del sistema es **100% determinista** (motor de reglas con base de con
 - **YOLOv8n** (lesiones de acné): conteo de comedones abiertos/cerrados, pápulas, pústulas.
   - Datasets: Roboflow Universe (`Skin-Analysis-v3`, CC-BY-4.0: acne, dark circles, freckles, redness, whiteheads, wrinkles), ACNE04; anotación propia asistida (Label Studio) de 200–500 imágenes si se requiere.
 - **U-Net / DeepLabV3+** (segmentación): % de área con hiperpigmentación y % con eritema, por zona facial.
-  - Datasets: FITZPATRICK17k (16.5k imágenes clínicas, CC-BY-NC-SA — válido para tesis), ISIC Archive.
+  - Datasets: FITZPATRICK17k (16.5k imágenes clínicas, CC-BY-NC-SA — uso no comercial), ISIC Archive.
 - **Heurísticas validadas** (extensión): porosidad (filtros Gabor + estadística de textura), líneas finas.
 - Toda métrica emite **confianza** (0–1) derivada del QA + variabilidad del modelo.
 
@@ -195,8 +195,8 @@ Cada regla lleva `evidence_refs[]` + `confidence` + `version`. **Sin cita → la
 
 1. **Abstención activa**: QA pobre, lesiones fuera del alcance de métricas estéticas, o regla no resoluble → "no puedo recomendar con seguridad" + guía. Métrica: tasa de abstención ≥ 5%.
 2. **Nunca diagnostica enfermedad**: solo métricas estéticas. Heurística conservadora de alerta ABCD (asimetría, borde irregular, color no uniforme, diámetro > 6 mm) → redirige a dermatólogo. Sin diagnóstico ni recomendación.
-3. **Property tests** (`hypothesis`): genera todas las combinaciones (perfil × clima × severidad) y verifica que **ninguna combinación peligrosa salga al usuario** (cobertura 100% de `reglas_bloqueo`). Artefacto de tesis fuerte.
-4. **Validación externa de la KB**: revisión de pares de la KB v1 por un farmacéutico o dermatólogo externo (una sesión, costo ~0 si es contacto académico), dictamen documentado en la tesis. El diseño fail-safe no depende de esto.
+3. **Property tests** (`hypothesis`): genera todas las combinaciones (perfil × clima × severidad) y verifica que **ninguna combinación peligrosa salga al usuario** (cobertura 100% de `reglas_bloqueo`). Artefacto de validación del producto.
+4. **Validación externa de la KB**: revisión de pares de la KB v1 por un farmacéutico o dermatólogo externo (una sesión, costo ~0 si es contacto universitario), dictamen documentado en la documentación técnica del producto. El diseño fail-safe no depende de esto.
 5. **Trazabilidad completa**: cada recomendación persiste versión de KB, modelo, reglas disparadas y clima → auditable y reproducible.
 6. **Privacidad**: imágenes = datos biométricos → GDPR/LOPD: consentimiento informado, cifrado, Supabase RLS, derecho al borrado, metadatos mínimos.
 7. **Disclaimer legal** en cada salida: no sustituye atención médica.
@@ -218,8 +218,8 @@ Niacinamida, ácido azelaico, retinol, adapaleno OTC, BPO, AHA (glicólico, lác
 
 ## 9. Decisión sobre LLMs
 
-- **No** en el núcleo: el motor de reglas es 100% determinista (exigencia clínica y de tesis).
-- **Sí, opcional, solo presentación**: Gemini Flash free tier (o Qwen local vía Ollama) recibe el JSON estructurado y genera explicación en lenguaje natural amigable. **Validación estricta de salida** (no puede alterar activos/concentraciones; fallback automático a plantillas). Descartable sin afectar al sistema — se documenta como decisión arquitectónica en la tesis.
+- **No** en el núcleo: el motor de reglas es 100% determinista (exigencia clínica y de reproducibilidad del producto).
+- **Sí, opcional, solo presentación**: Gemini Flash free tier (o Qwen local vía Ollama) recibe el JSON estructurado y genera explicación en lenguaje natural amigable. **Validación estricta de salida** (no puede alterar activos/concentraciones; fallback automático a plantillas). Descartable sin afectar al sistema — se documenta como decisión arquitectónica.
 
 ---
 
@@ -266,7 +266,7 @@ dermavision/
 | **F3 — Clima** | 8 | Servicio Open-Meteo + geolocalización + validación manual + caché | Tests de integración; fallbacks probados |
 | **F4 — KB + Reglas** | 9–11 | KB v1 (20–30 activos citados), motor de reglas, property tests de bloqueos, revisión externa de pares | **0 combinaciones peligrosas emitidas**; suite hypothesis completa |
 | **F5 — Producto** | 11–13 | API + PWA (cámara, perfil, resultados), snapshots, comparación temporal | E2E: analizar → recomendar → comparar |
-| **F6 — Validación** | 13–16 | Pruebas con usuarios piloto, métricas finales, fairness, documentación de tesis | Hipótesis de tesis validadas con datos |
+| **F6 — Validación** | 13–16 | Pruebas con usuarios piloto, métricas finales, fairness, documentación técnica del producto | Hipótesis del producto validadas con datos |
 
 ---
 
@@ -277,14 +277,14 @@ dermavision/
 | Datos clínicos anotados insuficientes (comedones) | Múltiples datasets públicos + anotación propia (Label Studio) + aumentación |
 | Sesgo en pieles oscuras | FITZPATRICK17k para balanceo; métricas separadas por subgrupo |
 | Responsabilidad legal | Abstención, nunca diagnóstico, disclaimers, alerta ABCD → dermatólogo |
-| Límites de free tiers (Vercel/Supabase) | Diseño para escala de tesis; procesamiento pesado en Colab/batch |
+| Límites de free tiers (Vercel/Supabase) | Diseño para la escala del producto; procesamiento pesado en Colab/batch |
 | Sobre-extensión de alcance | MVP = acné + hiperpigmentación + eritema + humectación; poros/arrugas como extensión |
-| Licencias (AGPL de YOLO) | Válido para tesis; alternativa Apache-2.0 (RT-DETR) documentada |
+| Licencias (AGPL de YOLO) | Válido para uso no comercial; alternativa Apache-2.0 (RT-DETR) documentada |
 | Ocio del calendario (picos de exámenes) | Fases de 1–2 semanas con entregables independientes; CI como verificación continua |
 
 ---
 
-## 13. Hipótesis medibles de la tesis
+## 13. Hipótesis medibles del producto
 
 1. El pipeline de estandarización permite métricas reproducibles entre dispositivos de distinta calidad (varianza < 5%).
 2. El motor determinista emite **0 combinaciones peligrosas** en el espacio completo de estados (property tests).

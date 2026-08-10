@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "dermavision"
 version = "0.1.0"
-description = "Sistema Experto de Análisis Dermocosmético Cuantitativo (proyecto de tesis)"
+description = "Sistema Experto de Análisis Dermocosmético Cuantitativo"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [

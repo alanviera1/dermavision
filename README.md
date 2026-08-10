@@ -1,6 +1,6 @@
 # Dermavision
 
-Sistema Experto de Análisis Dermocosmético Cuantitativo — proyecto de tesis.
+Sistema Experto de Análisis Dermocosmético Cuantitativo.
 
 Analiza fotografías faciales con métricas cuantitativas (hiperpigmentación, acné, eritema), las cruza con el contexto climático en tiempo real (temperatura, humedad, índice UV) y prescribe activos químicos puros con concentración mediante un motor de reglas determinista, bloqueando combinaciones peligrosas. 100% capas gratuitas y open-source.
 

@@ -2,7 +2,7 @@
 
 Catálogo oficial de datasets del proyecto. **Regla**: ningún dataset se integra sin fila verificada en este documento. Licencias verificadas el 2026-08-09.
 
-**Uso ético**: los datos contienen imágenes clínicas de pacientes. Uso académico exclusivo, sin redistribución, sin re-identificación; declarar origen y licencias en la tesis.
+**Uso ético**: los datos contienen imágenes clínicas de pacientes. Uso exclusivo de investigación; sin redistribución, sin re-identificación; declarar origen y licencias en la documentación del producto.
 
 ---
 
@@ -10,8 +10,8 @@ Catálogo oficial de datasets del proyecto. **Regla**: ningún dataset se integr
 
 | Dataset | Nº imágenes | Anotaciones | Licencia | Acceso | Estado |
 |---|---|---|---|---|---|
-| **ACNE04** (Wu et al., ICCV 2019) | 1,457 | Bounding boxes + conteo + severidad | **Uso académico únicamente** (contactar autor: Xiaoping Wu, xpwu95@163.com para otros usos) | GitHub `xpwu95/LDL`; espejos sin marca de agua: HuggingFace `ManuelHettich/acne04`, Kaggle `manuelhettich/acne04` | ⏳ Pendiente descarga |
-| **ACNE04-v2** (Gazeau et al., MICCAI 2024, AcneAI) | 1,204 | 32,443 anotaciones COCO (centro + radio por lesión) | Académico (deriva de ACNE04) | GitHub `AIpourlapeau/acne04v2` | ⏳ Pendiente |
+| **ACNE04** (Wu et al., ICCV 2019) | 1,457 | Bounding boxes + conteo + severidad | **Restringida a fines de investigación** (contactar autor: Xiaoping Wu, xpwu95@163.com para otros usos) | GitHub `xpwu95/LDL`; espejos sin marca de agua: HuggingFace `ManuelHettich/acne04`, Kaggle `manuelhettich/acne04` | ⏳ Pendiente descarga |
+| **ACNE04-v2** (Gazeau et al., MICCAI 2024, AcneAI) | 1,204 | 32,443 anotaciones COCO (centro + radio por lesión) | Investigación (deriva de ACNE04) | GitHub `AIpourlapeau/acne04v2` | ⏳ Pendiente |
 | **Roboflow acne04** (Andrei Dore) | 1,419 | Detección 7 clases (blackheads, whiteheads, papule, pustule, nodule, cyst, fire) | CC BY 4.0 | Roboflow Universe `andrei-dore-5lz05/acne04` (API key gratuita) | ⏳ Pendiente |
 | **Roboflow Skin-Analysis-v3** (Faceinfo) | 2,623 | Detección: Acne, Dark Circle, freckles, Redness, whiteheads, Wrinkles | CC BY 4.0 | Roboflow Universe `faceinfo/skin-analysis-v3-jwjcp` | ⏳ Pendiente |
 
@@ -26,7 +26,7 @@ Catálogo oficial de datasets del proyecto. **Regla**: ningún dataset se integr
 
 | Dataset | Nº imágenes | Anotaciones | Licencia | Acceso | Estado |
 |---|---|---|---|---|---|
-| **Fitzpatrick17k** (Groh et al., 2021) | 16,577 | 114 condiciones + tipo de piel Fitzpatrick I–VI | **CC BY-NC-SA 3.0** (válido para tesis) | CSV público en GitHub `mattgroh/fitzpatrick17k`; **imágenes: formulario a autores** | ✅ CSV descargado; ⏳ imágenes por formulario |
+| **Fitzpatrick17k** (Groh et al., 2021) | 16,577 | 114 condiciones + tipo de piel Fitzpatrick I–VI | **CC BY-NC-SA 3.0** (uso no comercial) | CSV público en GitHub `mattgroh/fitzpatrick17k`; **imágenes: formulario a autores** | ✅ CSV descargado; ⏳ imágenes por formulario |
 | **ISIC Archive** | >90k (múltiples colecciones) | Diagnósticos, segmentaciones por colección | Por colección (mayoría CC; verificar cada una) | `isic-cli` (pip) / API `isic-archive.com` | ⏳ Pendiente |
 
 ## 4. Región facial (infraestructura de Fase 1)
