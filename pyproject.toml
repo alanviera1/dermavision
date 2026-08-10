@@ -35,6 +35,8 @@ vision = [
 ]
 data = [
     "dvc[s3]>=3.0",
+    "huggingface_hub>=0.24",
+    "roboflow>=1.1",
 ]
 presentation = [
     "google-generativeai>=0.7",
